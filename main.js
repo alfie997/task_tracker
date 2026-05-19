@@ -1,5 +1,5 @@
-// const fs = require('fs');
-const fs = require("fs/promises");
+const fs = require('fs');
+// const fs = require("fs/promises");
 const readline = require('readline');
 const process = require('process');
 
@@ -11,12 +11,11 @@ args.forEach((val, index) => {
     console.log(`${index}: ${val}`);
 });
 
-let file = new Object;
+// let file = new Object;
 
-let number = 0;
 let task = "empty";
 
-// fs.readFile('/home/alfie/repos/task_tracker/data.json', 'utf8', (err, data) => {
+// fs.readFileSync('data.json', 'utf8', (err, data) => {
 //     if (err) {
 //         console.error(err);
 //         return;
@@ -28,13 +27,41 @@ let task = "empty";
 //     console.log(number);
 // });
 
+// async function main() {
+//     const data = await fs.readFile('/home/alfie/repos/task_tracker/data.json', 'utf8');
+//     console.log(data);
+//     file = JSON.parse(data);
+//     console.log(file);
+//     number = file.id + 1;
+//     console.log(number);
+
+//     if (args[2] === 'add') {
+//         console.log('Adding a new task');
+//         task = args[3];
+//         writeFileExample();
+//     }
+// }
+
 const d = new Date();
 
 function writeFileExample() {
     try {
-        fs.writeFileSync('myFile.txt', 'Hello, World', 'utf8');
+        // fs.writeFileSync('myFile.txt', 'Hello, World', 'utf8');
 
-        const data = { id: number, description: task, status: 'todo', createdAt: d.toLocaleString()};
+        let number = 0;
+        
+        console.log('A');
+
+        const oldData = fs.readFileSync('data.json', 'utf8');
+        console.log('B');
+
+        const obj = JSON.parse(oldData);
+        console.log('C', obj);
+
+        number = obj.id + 1;
+        console.log('D', number);
+
+        const newData = { id: number, description: task, status: 'todo', createdAt: d.toLocaleString()};
 
         // if (file.id === ) {
         //     fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
@@ -47,13 +74,19 @@ function writeFileExample() {
         //         }
         //     })
         // }
+        
 
-        fs.appendFile('data.json', JSON.stringify(data, null, 2), 'utf8', err => {
-                if (err) {
-                console.error(err);
-                } else {
-                    // done
-                }})
+        fs.appendFileSync('data.json', '\n', (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        fs.appendFileSync('data.json', JSON.stringify(newData, null, 2), 'utf8', err => {
+            if (err) {
+            console.error(err);
+            } else {
+                // done
+        }});
 
         console.log('Files created successfully');
     } catch (err) {
@@ -61,28 +94,15 @@ function writeFileExample() {
     }
 }
 
-async function main() {
-    const data = await fs.readFile('/home/alfie/repos/task_tracker/data.json', 'utf8');
-    console.log(data);
-    file = JSON.parse(data);
-    console.log(file);
-    number = file.id + 1;
-    console.log(number);
 
-    if (args[2] === 'add') {
-        console.log('Adding a new task');
-        task = args[3];
-        writeFileExample();
-    }
+
+// main();
+
+if (args[2] === 'add') {
+    console.log('Adding a new task');
+    task = args[3];
+    writeFileExample();
 }
-
-main();
-
-// if (args[2] === 'add') {
-//     console.log('Adding a new task');
-//     task = args[3];
-//     writeFileExample();
-// }
 
 // const rl = readline.createInterface({
 //     input: process.stdin,
