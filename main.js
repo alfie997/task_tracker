@@ -10,29 +10,21 @@ args.forEach((val, index) => {
     console.log(`${index}: ${val}`);
 });
 
-let task = "empty";
-
 const d = new Date();
 
-function writeFileExample() {
+function addTask(task) {
     try {
         let number = 0;
-        
-        // console.log('A');
 
         const oldData = fs.readFileSync('data.json', 'utf8');
-        // console.log('B');
 
-        const obj = JSON.parse(oldData);
-        // console.log('C', obj, Array.isArray(obj), obj[obj.length-1]);
+        const data = JSON.parse(oldData);
 
-        number = obj[obj.length-1].id + 1;
-        // console.log('D', number);
+        number = data[data.length-1].id + 1;
 
-        obj.push({ id: number, description: task, status: 'todo', createdAt:d.toLocaleString() });
-        // console.log('E', obj, typeof obj, Array.isArray(obj));
+        data.push({ id: number, description: task, status: 'todo', createdAt: d.toLocaleString() });
 
-        fs.writeFileSync('data.json', JSON.stringify(obj, null, 2), 'utf8');
+        fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
 
         console.log('Files created successfully');
     } catch (err) {
@@ -40,10 +32,39 @@ function writeFileExample() {
     }
 }
 
+function editTask(num, task) {
+    try {
+        // console.log(num, task);
+        const oldData = fs.readFileSync('data.json', 'utf8');
+
+        const data = JSON.parse(oldData);
+        // console.log('A', data);
+
+        // const newData = [];
+
+        // console.log('B');
+        // data.forEach((obj) => {
+        for (let obj of data) {
+            // console.log(obj.id);
+            if (obj.id == num) {
+                // console.log('D')
+                obj.description = task;
+                obj.updatedAt = d.toLocaleString();
+            }
+        };
+        // console.log(data);
+
+        fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
+
+        console.log('Files edited successfully');
+    } catch (err) {
+        console.log('Error editing files:', err);
+    }
+}
+
 if (args[2] === 'add') {
     console.log('Adding a new task');
-    task = args[3];
-    writeFileExample();
+    addTask(args[3]);
 } else if (args[2] === 'list') {
     const oldData = fs.readFileSync('data.json', 'utf8');
     let data = JSON.parse(oldData);
@@ -69,5 +90,7 @@ if (args[2] === 'add') {
         console.log('Listing all tasks');
         console.log(data);
     }
+} else if (args[2] === 'update') {
+    editTask(args[3], args[4]);
 }
 
