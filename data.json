@@ -13,26 +13,20 @@
   },
   {
     "id": 3,
-    "description": "Run marathon",
-    "status": "todo",
-    "createdAt": "5/25/2026, 4:12:40 PM"
+    "description": "Fake being good",
+    "status": "done",
+    "createdAt": "5/25/2026, 6:07:04 PM"
   },
   {
     "id": 4,
-    "description": "Join fight",
-    "status": "todo",
-    "createdAt": "5/25/2026, 5:52:39 PM"
+    "description": "Call Ginga the n word",
+    "status": "in-progress",
+    "createdAt": "5/26/2026, 1:42:06 PM"
   },
   {
     "id": 5,
-    "description": "Play game",
+    "description": "Climb the eifel tower",
     "status": "todo",
-    "createdAt": "5/25/2026, 5:57:29 PM"
-  },
-  {
-    "id": 6,
-    "description": "Climb down Jericho's well",
-    "status": "todo",
-    "createdAt": "5/25/2026, 5:57:53 PM"
+    "createdAt": "5/26/2026, 2:00:44 PM"
   }
 ]

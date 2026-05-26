@@ -18,38 +18,21 @@ function writeFileExample() {
     try {
         let number = 0;
         
-        console.log('A');
+        // console.log('A');
 
         const oldData = fs.readFileSync('data.json', 'utf8');
-        console.log('B');
+        // console.log('B');
 
         const obj = JSON.parse(oldData);
-        console.log('C', obj, Array.isArray(obj), obj[obj.length-1]);
+        // console.log('C', obj, Array.isArray(obj), obj[obj.length-1]);
 
         number = obj[obj.length-1].id + 1;
-        console.log('D', number);
+        // console.log('D', number);
 
         obj.push({ id: number, description: task, status: 'todo', createdAt:d.toLocaleString() });
-        console.log('E', obj, typeof obj, Array.isArray(obj));
-
-
-        // const newData = { id: number, description: task, status: 'todo', createdAt: d.toLocaleString()};
-        // console.log(newData);
+        // console.log('E', obj, typeof obj, Array.isArray(obj));
 
         fs.writeFileSync('data.json', JSON.stringify(obj, null, 2), 'utf8');
-
-
-        // fs.appendFileSync('data.json', '\n', (err) => {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        // });
-        // fs.appendFileSync('data.json', JSON.stringify(newData, null, 2), 'utf8', err => {
-        //     if (err) {
-        //     console.error(err);
-        //     } else {
-        //         // done
-        // }});
 
         console.log('Files created successfully');
     } catch (err) {
@@ -61,5 +44,30 @@ if (args[2] === 'add') {
     console.log('Adding a new task');
     task = args[3];
     writeFileExample();
+} else if (args[2] === 'list') {
+    const oldData = fs.readFileSync('data.json', 'utf8');
+    let data = JSON.parse(oldData);
+    if (args[3] === 'todo') {
+        data.forEach((obj) => {
+            if (obj.status === 'todo') {
+                console.log(obj);
+            }
+        });
+    } else if (args[3] === 'done') {
+        data.forEach((obj) => {
+            if (obj.status === 'done') {
+                console.log(obj);
+            }
+        });
+    } else if (args[3] === 'in-progress') {
+        data.forEach((obj) => {
+        if (obj.status === 'in-progress') {
+            console.log(obj);
+        }
+    });
+    } else {
+        console.log('Listing all tasks');
+        console.log(data);
+    }
 }
 
