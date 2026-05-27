@@ -54,12 +54,34 @@ function editTask(num, task) {
         };
         // console.log(data);
 
-        fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
 
         console.log('Files edited successfully');
     } catch (err) {
         console.log('Error editing files:', err);
     }
+}
+
+function deleteTask(num) {
+    try {
+        const oldData = fs.readFileSync('data.json', 'utf8');
+
+        const data = JSON.parse(oldData);
+        // console.log(data);
+
+        const newData = data.filter((obj) => {
+            if (!(obj.id == num)) {
+                return obj;
+            }
+        });
+        // console.log(newData);
+
+        fs.writeFileSync('data.json', JSON.stringify(newData, null, 2), 'utf8');
+
+        console.log('Files deleted successfully');
+    } catch (err) {
+        console.log('Error deleting files:', err);
+    }
+
 }
 
 if (args[2] === 'add') {
@@ -92,5 +114,7 @@ if (args[2] === 'add') {
     }
 } else if (args[2] === 'update') {
     editTask(args[3], args[4]);
+} else if (args[2] === 'delete') {
+    deleteTask(args[3]);
 }
 

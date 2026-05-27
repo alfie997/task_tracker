@@ -6,13 +6,6 @@
     "createdAt": "5/17/2026, 6:34:34 AM"
   },
   {
-    "id": 2,
-    "description": "Get items and food",
-    "status": "todo",
-    "createdAt": "5/25/2026, 4:12:40 PM",
-    "updatedAt": "5/26/2026, 3:43:58 PM"
-  },
-  {
     "id": 3,
     "description": "Fake being good",
     "status": "done",
@@ -38,15 +31,15 @@
     "createdAt": "5/26/2026, 2:57:46 PM"
   },
   {
-    "id": 7,
-    "description": "Wash laundry",
-    "status": "todo",
-    "createdAt": "5/26/2026, 3:34:19 PM"
-  },
-  {
     "id": 8,
     "description": "Break dance",
     "status": "todo",
     "createdAt": "5/26/2026, 3:45:41 PM"
+  },
+  {
+    "id": 9,
+    "description": "Go back home",
+    "status": "todo",
+    "createdAt": "5/27/2026, 3:05:28 PM"
   }
 ]
