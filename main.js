@@ -34,26 +34,18 @@ function addTask(task) {
 
 function editTask(num, task) {
     try {
-        // console.log(num, task);
         const oldData = fs.readFileSync('data.json', 'utf8');
 
         const data = JSON.parse(oldData);
-        // console.log('A', data);
 
-        // const newData = [];
-
-        // console.log('B');
-        // data.forEach((obj) => {
         for (let obj of data) {
-            // console.log(obj.id);
             if (obj.id == num) {
-                // console.log('D')
                 obj.description = task;
                 obj.updatedAt = d.toLocaleString();
             }
         };
-        // console.log(data);
 
+        fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
 
         console.log('Files edited successfully');
     } catch (err) {
@@ -66,20 +58,46 @@ function deleteTask(num) {
         const oldData = fs.readFileSync('data.json', 'utf8');
 
         const data = JSON.parse(oldData);
-        // console.log(data);
 
         const newData = data.filter((obj) => {
             if (!(obj.id == num)) {
                 return obj;
             }
         });
-        // console.log(newData);
 
         fs.writeFileSync('data.json', JSON.stringify(newData, null, 2), 'utf8');
 
         console.log('Files deleted successfully');
     } catch (err) {
         console.log('Error deleting files:', err);
+    }
+
+}
+
+function markTask(num, flag) {
+    try {
+        const oldData = fs.readFileSync('data.json', 'utf8');
+
+        const data = JSON.parse(oldData);
+
+        for (let obj of data) {
+            if (obj.id == num) {
+                if (flag == 2) {
+                    obj.status = 'in-progress';
+                    obj.updatedAt = d.toLocaleString();
+                } else if (flag == 3) {
+                    obj.status = 'done';
+                    obj.updatedAt = d.toLocaleString();
+                }
+            }
+        };
+        // console.log(data);
+
+        fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
+
+        console.log('Files marked successfully');
+    } catch (err) {
+        console.log('Error marking files:', err);
     }
 
 }
@@ -116,5 +134,9 @@ if (args[2] === 'add') {
     editTask(args[3], args[4]);
 } else if (args[2] === 'delete') {
     deleteTask(args[3]);
+} else if (args[2] === 'mark-in-progress') {
+    markTask(args[3], 2);
+} else if (args[2] === 'mark-done') {
+    markTask(args[3], 3);
 }
 
